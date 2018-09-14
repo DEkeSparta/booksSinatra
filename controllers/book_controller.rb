@@ -27,17 +27,51 @@ class BookController < Sinatra::Base
     }
   ]
 
-
   get "/" do
-    erb:"main"
+    erb :"books/main"
+  end
+
+  get "/new" do
+    @book = {
+      id: "",
+      title: "",
+      body: ""
+    }
+    erb :"books/new"
+  end
+
+  post "/" do
+    newBook = {
+      id: $books.length,
+      title: params[:title],
+      body: params[:body]
+    }
+    $books.push(newBook)
+    redirect "/"
+  end
+
+  put "/:id" do
+    book = $books[params[:id].to_i]
+    book[:title] = params[:title]
+    book[:body] = params[:body]
+    redirect "/"
+  end
+
+  delete "/:id" do
+    $books.delete_at(params[:id].to_i)
+    redirect "/"
+  end
+
+  get "/:id/edit" do
+    @book = $books[params[:id].to_i]
+    erb :"books/edit"
   end
 
   get "/:id" do
     arg = params[:id]
     if arg.is_int? && $books.length>arg.to_i && arg.to_i >= 0
-      @title = $books[params[:id].to_i][:title]
-      @blurb = $books[params[:id].to_i][:body]
-      erb:"books"
+      @book = $books[params[:id].to_i]
+      erb :"books/book"
     else
       "Book not found"
     end
