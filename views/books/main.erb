@@ -1,7 +1,7 @@
 <h1>Books Homepage</h1>
 <ul>
-  <% $books.each do |book| %>
-    <li><a href="<%=book[:id]%>"><%=book[:title]%></a>
-    <p><%=book[:body]%></p></li>
+  <% @books.each do |book| %>
+    <li><a href="<%=book.id%>"><%=book.title%></a>
+    <p><%=book.body%></p></li>
   <%end%>
 </ul>
