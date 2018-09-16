@@ -1,0 +1,8 @@
+<h1>Books Homepage</h1>
+<ul>
+  <% @books.each do |book| %>
+    <li><a href="<%=book.id%>"><%=book.title%></a>
+    <p><%=book.body%></p></li>
+  <%end%>
+  <p>You visited this page <%=@visits%> times.</p>
+</ul>
