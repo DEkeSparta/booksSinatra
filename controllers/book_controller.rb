@@ -9,6 +9,16 @@ class BookController < Sinatra::Base
 
   get "/" do
     @books = Book.getAll
+    @visits = request.cookies["homepageVisits"]
+    if @visits==nil
+      response.set_cookie("homepageVisits",{
+        value: 0,
+        expires: Time.now + 1E10
+      })
+      @visits = request.cookies["homepageVisits"]
+    end
+    @visits = @visits.to_i + 1
+    response.set_cookie("homepageVisits", @visits)
     erb :"books/main"
   end
 

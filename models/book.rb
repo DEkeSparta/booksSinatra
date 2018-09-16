@@ -50,8 +50,6 @@ class Book
 
   def self.parse book_data
     book = new Book
-    puts book.id, book_data["id"]
-    $stdout.flush()
     book.id = book_data["id"]
     book.title = book_data["title"]
     book.body = book_data["body"]
